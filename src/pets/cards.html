@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Fichas de Mascotas</title>
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .card {
+      background: #222;
+      padding: 10px;
+      border-radius: 10px;
+      width: 150px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 5px;
+    }
+
+    .modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #222;
+      border: 2px solid #555;
+      padding: 20px;
+      width: 350px;
+      border-radius: 10px;
+      display: none;
+      z-index: 999;
+    }
+
+    .modal img {
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      cursor: pointer;
+      font-size: 18px;
+      color: red;
+      background: transparent;
+      border: none;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      z-index: 998;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Fichas de Mascotas</h1>
+
+  <div class="grid" id="mascotasContainer"></div>
+
+  <!-- Ventana flotante -->
+  <div class="overlay" id="overlay"></div>
+  <div class="modal" id="detalleMascota">
+    <button class="close-btn" onclick="cerrarDetalle()">✖</button>
+    <div id="contenidoDetalle"></div>
+  </div>
+
+  <script>
+    const mascotas = [
+      {
+        nombre: "Luna",
+        raza: "Labrador",
+        edad: 3,
+        dueño: "Carlos Pérez",
+        dni: "12345678",
+        ingreso: "2023-09-01",
+        vacunas: ["Rabia", "Triple"],
+        imagen: "https://placedog.net/400?id=1"
+      },
+      {
+        nombre: "Max",
+        raza: "Beagle",
+        edad: 5,
+        dueño: "Lucía Gómez",
+        dni: "87654321",
+        ingreso: "2022-12-15",
+        vacunas: ["Rabia", "Parvovirus"],
+        imagen: "https://placedog.net/400?id=2"
+      },
+      {
+        nombre: "Luna",
+        raza: "Labrador",
+        edad: 3,
+        dueño: "Carlos Pérez",
+        dni: "12345678",
+        ingreso: "2023-09-01",
+        vacunas: ["Rabia", "Triple"],
+        imagen: "https://placedog.net/400?id=1"
+      },
+      {
+        nombre: "Max",
+        raza: "Beagle",
+        edad: 5,
+        dueño: "Lucía Gómez",
+        dni: "87654321",
+        ingreso: "2022-12-15",
+        vacunas: ["Rabia", "Parvovirus"],
+        imagen: "https://placedog.net/400?id=2"
+      }
+      ,      
+      {
+        nombre: "Luna",
+        raza: "Labrador",
+        edad: 3,
+        dueño: "Carlos Pérez",
+        dni: "12345678",
+        ingreso: "2023-09-01",
+        vacunas: ["Rabia", "Triple"],
+        imagen: "https://placedog.net/400?id=1"
+      },
+      {
+        nombre: "Max",
+        raza: "Beagle",
+        edad: 5,
+        dueño: "Lucía Gómez",
+        dni: "87654321",
+        ingreso: "2022-12-15",
+        vacunas: ["Rabia", "Parvovirus"],
+        imagen: "https://placedog.net/400?id=2"
+      } ,     
+      {
+        nombre: "Luna",
+        raza: "Labrador",
+        edad: 3,
+        dueño: "Carlos Pérez",
+        dni: "12345678",
+        ingreso: "2023-09-01",
+        vacunas: ["Rabia", "Triple"],
+        imagen: "https://placedog.net/400?id=1"
+      },
+      {
+        nombre: "Max",
+        raza: "Beagle",
+        edad: 5,
+        dueño: "Lucía Gómez",
+        dni: "87654321",
+        ingreso: "2022-12-15",
+        vacunas: ["Rabia", "Parvovirus"],
+        imagen: "https://placedog.net/400?id=2"
+      }
+    ];
+
+    const container = document.getElementById("mascotasContainer");
+    const detalle = document.getElementById("detalleMascota");
+    const overlay = document.getElementById("overlay");
+    const contenido = document.getElementById("contenidoDetalle");
+
+    mascotas.forEach((mascota, index) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.id = `mascota-${index}`; // Agregar ID único a cada tarjeta
+      card.innerHTML = `
+        <img src="${mascota.imagen}" alt="${mascota.nombre}">
+        <strong>${mascota.nombre}</strong><br>
+        <em>${mascota.raza}</em>
+      `;
+      card.onclick = () => mostrarDetalle(index);
+      container.appendChild(card);
+    });
+
+    function mostrarDetalle(i) {
+      const m = mascotas[i];
+      detalle.style.display = "block";
+      overlay.style.display = "block";
+      contenido.innerHTML = `
+        <h2>${m.nombre}</h2>
+        <p><strong>Raza:</strong> ${m.raza}</p>
+        <p><strong>Edad:</strong> ${m.edad} años</p>
+        <p><strong>Dueño:</strong> ${m.dueño}</p>
+        <p><strong>DNI:</strong> ${m.dni}</p>
+        <p><strong>Ingreso:</strong> ${m.ingreso}</p>
+        <p><strong>Vacunas:</strong> ${m.vacunas.join(", ")}</p>
+        <img src="${m.imagen}" alt="${m.nombre}">
+      `;
+    }
+
+    function cerrarDetalle() {
+      detalle.style.display = "none";
+      overlay.style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
