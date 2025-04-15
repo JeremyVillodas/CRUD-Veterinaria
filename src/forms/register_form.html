@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Mascotas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="contenedor">
@@ -14,8 +15,8 @@
             <input type="url" id="imagenMascota" name="imagenMascota" placeholder="Imagen de la mascota" required>
             <input type="text" id="nombreMascota" name="nombreMascota" placeholder="Nombre de la mascota" required>
             <input type="text" id="razaMascota" name="razaMascota" placeholder="Raza" required>
-            <input type="number" id="edadMascota" name="edadMascota" placeholder="Edad de la mascota" required>
-            <input type="text" id="dniDueño" name="dniDueño" placeholder="DNI del Dueño" required>
+            <input type="number" id="edadMascota" name="edadMascota" placeholder="Edad" required>
+            <input type="text" id="dniDueño" name="dniDueño" placeholder="DNI del Dueño" required maxlength="8" pattern="\d{8}" title="Por favor, ingresa exactamente 8 dígitos.">
             <input type="text" id="nombreDueño" name="nombreDueño" placeholder="Nombre del Dueño" required>
             <input type="date" id="fechaIngreso" name="fechaIngreso" placeholder="Fecha de Ingreso" required>
             <select id="seleccionVacunas" name="seleccionVacunas" required>
@@ -24,11 +25,12 @@
                 <option value="false">No Vacunado</option>
             </select>
             <div class="botones">
-                <button type="submit">Guardar</button>
                 <button type="button" id="botonCancelar">Cancelar</button>
+                <button type="submit">Guardar</button>
             </div>
         </form>
     </div>
-    <script src="script.js"></script>
+
+    <script src="register.js"></script>
 </body>
 </html>

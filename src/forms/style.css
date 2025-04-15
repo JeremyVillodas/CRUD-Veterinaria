@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.contenedor {
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 500px;
+}
+
+h1 {
+    text-align: center;
+    color: #b11b00;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input, select {
+    margin-bottom: 15px;
+    padding: 8px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    background-color: #2b2b2b;
+    color: #e0e0e0;
+    transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: #ca3318;
+    outline: none;
+}
+
+.botones {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 10px; 
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"] {
+    background-color: #9b220d;
+    color: #fff;
+}
+
+button[type="submit"]:hover {
+    background-color: #ce400d;
+}
+
+button[id="botonCancelar"] {
+    background-color: #504c4c;
+    color: #fff;
+}
+
+button[id="botonCancelar"]:hover {
+    background-color: #6b5e5e;
+}
+
+@media (max-width: 600px) {
+    .contenedor {
+        width: 95%;
+    }
+}
+
+
+/* estilo del boton editar */
+.icon-button {
+    width: 15px;
+    height: 15px;
+    border: 2px solid #ff0000;
+    background-color: transparent;
+    border-radius: 6px;
+    padding: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .icon-button i {
+    color: #fff8f8;
+    font-size: 16px;
+  }
+  
+
+  .icon-button:hover {
+    background-color: #b30000;
+    transform: scale(1.1);
+}
+
+.icon-button:active {
+    background-color: #800000;
+    transform: scale(0.95);
+}
+
+  
+
+/* Estilo del modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+
+.modal-content {
+    background-color: #1e1e1e;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal h2 {
+    text-align: center;
+    color: #b11b00;
+    margin-bottom: 20px;
+}
+
+.modal .botones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
