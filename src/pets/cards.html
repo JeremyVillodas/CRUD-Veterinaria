@@ -1,62 +1,93 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8">
-    <title>Fichas de Mascotas</title>
-    <link rel="stylesheet" href="../pets/pet_style.css" /> <!--corregir estilo-->
-    <link rel="stylesheet" href="../filters/filtros.css" /> <!--corregir estilo-->
-
-  </head>
-
-  <body>
-    <header class="header">
-      <div class="search-box">
-        <!--<img class="logo" src="../../images/logo.png" alt="">-->
-        <input class="buscar" type="text" id="dniInput" placeholder="Buscar por DNI" />
-        <button onclick="buscar()">🔍</button>
-        <button onclick="restaurar()">♻️</button>
-        <input type="date" id="fechaInput" />
-      </div>
-    </header>
-
-    <main>
-      <section class="filters">
-        <select id="registroInput">
-          <option value="">Registro</option>
-          <option value="nuevo">Nuevo</option>
-          <option value="ultimo">Último</option>
-        </select>
-
-        <select id="razaInput">
-          <option value="">Raza</option>
-          <option value="labrador">Labrador</option>
-          <option value="pitbull">Pitbull</option>
-          <option value="beagle">Beagle</option>
-        </select>
-      </section>
-
-      <section id="resultados" class="resultados"></section>
-    </main>
-    <!--===========================================================-->
-    <div class="muestra">
-      <h1>Fichas de Mascotas</h1>
-      <div class="grid" id="mascotasContainer"></div>
-
-      <!-- Ventana flotante -->
-      <div class="overlay" id="overlay"></div>
-      <div class="modal" id="detalleMascota">
-        <button class="close-btn" onclick="cerrarDetalle()">✖</button>
-        <div id="contenidoDetalle"></div>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <title>Fichas de Mascotas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../pets/pet_style.css" /> <!--corregir estilo-->
+  <link rel="stylesheet" href="../filters/filtros.css" /> <!--corregir estilo-->
+  <link rel="stylesheet" href="../forms/edit.css">
+</head>
+<body>
+  <header class="header">
+    <div class="search-box">
+      <input class="buscar" type="text" id="dniInput" placeholder="Buscar por DNI" />
+      <button class="fast" onclick="buscar()">🔍</button>
+      <button class="fast" onclick="restaurar()">♻️</button>
+      <input type="date" id="fechaInput" />
     </div>
-    
+  </header>
 
-  </body>
+  <main>
+    <section class="filters">
+      <select id="registroInput">
+        <option value="">Registro</option>
+        <option value="nuevo">Nuevo</option>
+        <option value="ultimo">Último</option>
+      </select>
 
-  <footer class="footer">
-    <p>&copy; 2025 Veterinaria. Todos los derechos reservados.</p>
-  </footer>
+      <select id="razaInput">
+        <option value="">Raza</option>
+        <option value="labrador">Labrador</option>
+        <option value="pitbull">Pitbull</option>
+        <option value="beagle">Beagle</option>
+        <option value="chihuahua">Chihuahua</option>
+      </select>
 
-    <script src="../pets/pets.js"></script>
-    <script src="../filters/filtros.js"></script>
+      <button id="registrarBtn" onclick="window.location.href='../forms/register_from.html'">
+        Registrar Nuevo
+      </button>
+    </section>
+
+    <section id="resultados" class="resultados"></section>
+  </main>
+
+  <div class="muestra">
+    <h1>Fichas de Mascotas</h1>
+    <div class="grid" id="mascotasContainer"></div>
+
+    <!-- Ventana flotante -->
+    <div class="overlay" id="overlay"></div>
+    <div class="modal" id="detalleMascota">
+      <button class="close-btn" onclick="cerrarDetalle()">✖</button>
+      <div id="contenidoDetalle"></div>
+    </div>
+  </div>
+
+<!-- Modal editar -->
+<div id="editarMascotaModal" class="modalEditar">
+  <div class="modalEditar-content">
+    <span class="close-button" onclick="cerrarModalEditar()">&times;</span>
+    <h2>Editar Registro</h2>
+    <form id="formularioEditarMascota">
+      <input type="hidden" id="indiceMascotaEditar" name="indiceMascotaEditar">
+      <input type="url" id="imagenMascotaEditar" name="imagenMascotaEditar" placeholder="Imagen de la mascota" required>
+      <input type="text" id="nombreMascotaEditar" name="nombreMascotaEditar" placeholder="Nombre de la mascota" required>
+      <input type="text" id="razaMascotaEditar" name="razaMascotaEditar" placeholder="Raza" required>
+      <input type="number" id="edadMascotaEditar" name="edadMascotaEditar" placeholder="Edad" required>
+      <input type="text" id="dniDueñoEditar" name="dniDueñoEditar" placeholder="DNI del Dueño" required maxlength="8" pattern="\d{8}" title="Por favor, ingresa exactamente 8 dígitos.">
+      <input type="text" id="nombreDueñoEditar" name="nombreDueñoEditar" placeholder="Nombre del Dueño" required>
+      <input type="date" id="fechaIngresoEditar" name="fechaIngresoEditar" placeholder="Fecha de Ingreso" required>
+      <select id="seleccionVacunasEditar" name="seleccionVacunasEditar" required>
+        <option value="" disabled selected>Seleccionar Vacunas</option>
+        <option value="true">Vacunado</option>
+        <option value="false">No Vacunado</option>
+      </select>
+      <div class="botones">
+        <button type="button" id="botonCancelarEditar" onclick="cerrarModalEditar()">Cancelar</button>
+        <button type="submit">Guardar Cambios</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+  <script src="../forms/edit.js"></script>
+  <script src="../pets/pets.js"></script>
+  <script src="../filters/filtros.js"></script>
+</body>
+<footer class="footer">
+  <p>&copy; 2025 Veterinaria. Todos los derechos reservados.</p>
+</footer>
 </html>
