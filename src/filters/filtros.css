@@ -7,7 +7,7 @@ body {
 }
 
 .header {
-  padding: 20px 0px;
+  padding: 15px 0px;
   display: flex;
   justify-content: center;
   background-color: #005dc1;
@@ -17,7 +17,8 @@ body {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
-  margin-left: 62%;
+  margin-left: 55%;
+  margin-bottom: -10px;
 }
 
 .search-box input[type="text"],
@@ -26,6 +27,8 @@ body {
   padding: 10px;
   border: none;
   border-radius: 8px;
+  background-color: white;
+  color: black;
   font-size: 14px;
   outline: none;
   width: auto; /* Asegura que los inputs ocupen el ancho necesario */
@@ -57,6 +60,11 @@ button {
   gap: 10px;
   display: flex;
   justify-content: flex-end;
+}
+
+.fast{
+  width: 60px;
+  height: 40px;
 }
 
 /*===========================00*/
