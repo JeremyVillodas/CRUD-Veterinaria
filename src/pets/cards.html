@@ -13,8 +13,8 @@
   <header class="header">
     <div class="search-box">
       <input class="buscar" type="text" id="dniInput" placeholder="Buscar por DNI" />
-      <button onclick="buscar()">🔍</button>
-      <button onclick="restaurar()">♻️</button>
+      <button class="fast" onclick="buscar()">🔍</button>
+      <button class="fast" onclick="restaurar()">♻️</button>
       <input type="date" id="fechaInput" />
     </div>
   </header>
@@ -32,7 +32,12 @@
         <option value="labrador">Labrador</option>
         <option value="pitbull">Pitbull</option>
         <option value="beagle">Beagle</option>
+        <option value="chihuahua">Chihuahua</option>
       </select>
+
+      <button id="registrarBtn" onclick="window.location.href='../forms/register_from.html'">
+        Registrar Nuevo
+      </button>
     </section>
 
     <section id="resultados" class="resultados"></section>
