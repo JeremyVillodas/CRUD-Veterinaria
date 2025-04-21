@@ -1,13 +1,13 @@
 /*NAv link*/
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background: #2b2b2b;
   color: white;
 }
 
 .header {
-  padding: 10px 0px;
+  padding: 20px 0px;
   display: flex;
   justify-content: center;
   background-color: #005dc1;
@@ -17,31 +17,29 @@ body {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
-  margin-left: 56%;
-  margin-top: 10px;
+  margin-left: 62%;
 }
 
-input[type="text"],
-input[type="date"],
-select {
+.search-box input[type="text"],
+.search-box input[type="date"],
+.search-box select {
   padding: 10px;
   border: none;
   border-radius: 8px;
   font-size: 14px;
   outline: none;
+  width: auto; /* Asegura que los inputs ocupen el ancho necesario */
+  box-sizing: border-box; /* Incluye el padding y el border en el ancho total */
+}
+
+.search-box button {
+  padding: 10px 14px;
+  border: none;
   background-color: white;
-  color: black;
-}
-
-.fast{
-  height: 40px;
-  width: 60px;
-}
-
-input[type="text"]{
-  max-width: 150%;
-  width: 120%;
-  margin-left: -90%;
+  color: #007bff;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 button {
@@ -61,22 +59,7 @@ button {
   justify-content: flex-end;
 }
 
-/*Agregar opcional*/
-
-.registrarBtn {
-  padding: 6px 12px;
-  background-color: #f8f9fa;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  cursor: pointer;
-  height: 30px;
-}
-.registrarBtn:hover {
-  background-color: #e2e6ea;
-  height: 30px;
-}
-
-/*FOOTER*/
+/*===========================00*/
 .footer {
     position: fixed; /* o 'absolute' dependiendo de tu layout */
     bottom: 0;
@@ -98,5 +81,5 @@ button {
     margin: 0;
     font-size: 14px;
     font-family: 'Arial', sans-serif;
-    text-align: center;
+    text-align: center;
   }
