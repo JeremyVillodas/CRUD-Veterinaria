@@ -1,26 +1,73 @@
-// Verifica si las mascotas se cargan correctamente
-function buscar() {
+ // Verifica si las mascotas se cargan correctamente
+ function buscar() {
+
   const dni = document.getElementById("dniInput").value.trim();
   const fecha = document.getElementById("fechaInput").value;
-  const nombre = document.getElementById("registroInput").value.toLowerCase();
+  const filtroRegistro = document.getElementById("registroInput").value;
   const raza = document.getElementById("razaInput").value.toLowerCase();
 
   let filtrados = mascotas;
 
+  // Filtrar por DNI
   if (dni) filtrados = filtrados.filter((item) => item.dniDueño.includes(dni));
-  if (fecha)
-    filtrados = filtrados.filter((item) => item.fechaIngreso === fecha);
-  if (nombre)
-    filtrados = filtrados.filter((item) =>
-      item.nombreMascota.toLowerCase().includes(nombre)
-    );
-  if (raza)
-    filtrados = filtrados.filter(
-      (item) => item.razaMascota.toLowerCase() === raza
-    );
+  
+  // Filtrar por fecha de ingreso
+  if (fecha) filtrados = filtrados.filter((item) => item.fechaIngreso === fecha);
+
+  // Filtrar por "Nuevo" o "Último"
+  if (filtroRegistro) {
+    // No se filtra por fecha (no hay límite de 30 días), solo se ordena
+    if (filtroRegistro === "nuevo") {
+      // Ordenar de la fecha más nueva a la más antigua
+      filtrados.sort((a, b) => {
+        const fechaA = new Date(a.fechaIngreso);
+        const fechaB = new Date(b.fechaIngreso);
+        return fechaB - fechaA; // Ordenar de la más nueva a la más antigua
+      });
+    } else if (filtroRegistro === "ultimo") {
+      // Ordenar de la fecha más antigua a la más nueva
+      filtrados.sort((a, b) => {
+        const fechaA = new Date(a.fechaIngreso);
+        const fechaB = new Date(b.fechaIngreso);
+        return fechaA - fechaB; // Ordenar de la más antigua a la más nueva
+      });
+    }
+  }
+
+  // Filtrar por raza
+  if (raza) filtrados = filtrados.filter(
+    (item) => item.razaMascota.toLowerCase() === raza
+  );
 
   mostrarResultados(filtrados);
 }
+
+//Filtro de raza
+function cargarRazasUnicas() {
+  const razaInput = document.getElementById("razaInput");
+  const razasUnicas = [...new Set(mascotas.map(m => m.razaMascota.toLowerCase()))];
+
+  // Limpiar opciones actuales excepto la primera
+  razaInput.innerHTML = '<option value="">Raza</option>';
+
+  // Agregar razas únicas
+  razasUnicas.forEach(raza => {
+    const option = document.createElement("option");
+    option.value = raza;
+    option.textContent = raza.charAt(0).toUpperCase() + raza.slice(1); // capitaliza
+    razaInput.appendChild(option);
+  });
+}
+
+// Este bloque se ejecuta solo cuando todo el HTML esté cargado
+window.onload = function () {
+  document.getElementById("dniInput").addEventListener("input", buscar);
+  document.getElementById("fechaInput").addEventListener("input", buscar);
+  document.getElementById("registroInput").addEventListener("input", buscar);
+  document.getElementById("razaInput").addEventListener("input", buscar);
+
+  cargarRazasUnicas();
+};
 
 function restaurar() {
   document.getElementById("dniInput").value = "";
