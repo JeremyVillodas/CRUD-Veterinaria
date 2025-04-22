@@ -1,26 +1,64 @@
  // Verifica si las mascotas se cargan correctamente
-function buscar() {
+ function buscar() {
   const dni = document.getElementById("dniInput").value.trim();
   const fecha = document.getElementById("fechaInput").value;
-  const nombre = document.getElementById("registroInput").value.toLowerCase();
+  const filtroRegistro = document.getElementById("registroInput").value; // ← ya no usamos toLowerCase aquí
   const raza = document.getElementById("razaInput").value.toLowerCase();
 
   let filtrados = mascotas;
 
   if (dni) filtrados = filtrados.filter((item) => item.dniDueño.includes(dni));
-  if (fecha)
-    filtrados = filtrados.filter((item) => item.fechaIngreso === fecha);
-  if (nombre)
-    filtrados = filtrados.filter((item) =>
-      item.nombreMascota.toLowerCase().includes(nombre)
-    );
-  if (raza)
-    filtrados = filtrados.filter(
-      (item) => item.razaMascota.toLowerCase() === raza
-    );
+  if (fecha) filtrados = filtrados.filter((item) => item.fechaIngreso === fecha);
+  
+  // Filtro de "Nuevo" (<30 días) o "Último" (>=30 días)
+  if (filtroRegistro) {
+    filtrados = filtrados.filter((item) => {
+      const hoy = new Date();
+      const fechaIngreso = new Date(item.fechaIngreso);
+      const diferenciaDias = (hoy - fechaIngreso) / (1000 * 60 * 60 * 24); // días
+
+      if (filtroRegistro === "nuevo") {
+        return diferenciaDias < 30;
+      } else if (filtroRegistro === "ultimo") {
+        return diferenciaDias >= 30;
+      }
+      return true; // por defecto no filtra nada
+    });
+  }
+
+  if (raza) filtrados = filtrados.filter(
+    (item) => item.razaMascota.toLowerCase() === raza
+  );
 
   mostrarResultados(filtrados);
 }
+
+//Filtro de raza
+function cargarRazasUnicas() {
+  const razaInput = document.getElementById("razaInput");
+  const razasUnicas = [...new Set(mascotas.map(m => m.razaMascota.toLowerCase()))];
+
+  // Limpiar opciones actuales excepto la primera
+  razaInput.innerHTML = '<option value="">Raza</option>';
+
+  // Agregar razas únicas
+  razasUnicas.forEach(raza => {
+    const option = document.createElement("option");
+    option.value = raza;
+    option.textContent = raza.charAt(0).toUpperCase() + raza.slice(1); // capitaliza
+    razaInput.appendChild(option);
+  });
+}
+
+// Este bloque se ejecuta solo cuando todo el HTML esté cargado
+window.onload = function () {
+  document.getElementById("dniInput").addEventListener("input", buscar);
+  document.getElementById("fechaInput").addEventListener("input", buscar);
+  document.getElementById("registroInput").addEventListener("input", buscar);
+  document.getElementById("razaInput").addEventListener("input", buscar);
+
+  cargarRazasUnicas();
+};
 
 function restaurar() {
   document.getElementById("dniInput").value = "";
