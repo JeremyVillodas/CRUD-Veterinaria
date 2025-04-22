@@ -1,4 +1,4 @@
- // Verifica si las mascotas se cargan correctamente
+// Verifica si las mascotas se cargan correctamente
 function buscar() {
   const dni = document.getElementById("dniInput").value.trim();
   const fecha = document.getElementById("fechaInput").value;
@@ -47,29 +47,7 @@ function mostrarResultados(lista) {
       <strong>${mascota.nombreMascota}</strong><br>
       <em>${mascota.razaMascota}</em>
     `;
-    card.onclick = () => mostrarDetalleGlobal(mascota);
+    card.onclick = () => mostrarDetalle(mascota.id);
     fichas.appendChild(card);
   });
-}
-
-function mostrarDetalleGlobal(m) {
-  const detalle = document.getElementById("detalleMascota");
-  const overlay = document.getElementById("overlay");
-  const contenido = document.getElementById("contenidoDetalle");
-
-  detalle.style.display = "block";
-  overlay.style.display = "block";
-
-  contenido.innerHTML = `
-    <h2>${m.nombreMascota}</h2>
-    <p><strong>Raza:</strong> ${m.razaMascota}</p>
-    <p><strong>Edad:</strong> ${m.edadMascota} años</p>
-    <p><strong>Dueño:</strong> ${m.nombreDueño}</p>
-    <p><strong>DNI:</strong> ${m.dniDueño}</p>
-    <p><strong>Ingreso:</strong> ${m.fechaIngreso}</p>
-    <p><strong>Vacunas:</strong> ${
-      m.seleccionVacunas === "true" ? "Vacunado" : "No Vacunado"
-    }</p>
-    <img src="${m.imagenMascota}" alt="${m.nombreMascota}">
-  `;
 }

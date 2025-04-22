@@ -24,9 +24,9 @@ function mostrarMascotas() {
   });
 }
 
-function mostrarDetalle(i) {
-  indiceMascotaActual = i;
-  const m = mascotas[i];
+function mostrarDetalle(id) {
+  idMascotaActual = id;
+  const m = mascotas[id];
   detalle.style.display = "block";
   overlay.style.display = "block";
   contenido.innerHTML = `
@@ -39,7 +39,7 @@ function mostrarDetalle(i) {
         <p><strong>Vacunas:</strong> ${
           m.seleccionVacunas === "true" ? "Vacunado" : "No Vacunado"
         }</p>
-        <button type="button" id="botonEditar" class="icon-button" onclick="abrirModalEditar(${i})">
+        <button type="button" id="botonEditar" class="icon-button" onclick="abrirModalEditar(${id})">
           <i class="fas fa-edit"></i>
         </button>
         <img src="${m.imagenMascota}" alt="${m.nombreMascota}">
@@ -54,22 +54,6 @@ function cerrarDetalle() {
 function abrirModalEditar(index) {
   cerrarDetalle();
   abrirModalEditarConIndice(index);
-}
-
-function actualizarTarjeta(index) {
-  const card = document.getElementById(`mascota-${index}`);
-  const mascota = mascotas[index];
-  card.innerHTML = `
-        <img src="${mascota.imagenMascota}" alt="${mascota.nombreMascota}">
-        <strong>${mascota.nombreMascota}</strong><br>
-        <em>${mascota.razaMascota}</em>
-      `;
-}
-
-function actualizarDetalle(index) {
-  if (indiceMascotaActual === index) {
-    mostrarDetalle(index);
-  }
 }
 
 // Mostrar las mascotas al cargar la página

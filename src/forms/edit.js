@@ -7,6 +7,7 @@ function abrirModalEditarConIndice(index) {
   const mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
   const mascota = mascotas[index];
   document.getElementById("indiceMascotaEditar").value = index;
+  document.getElementById("idMascotaEditar").value = mascota.id;
   document.getElementById("imagenMascotaEditar").value = mascota.imagenMascota;
   document.getElementById("nombreMascotaEditar").value = mascota.nombreMascota;
   document.getElementById("razaMascotaEditar").value = mascota.razaMascota;
@@ -23,11 +24,12 @@ function cerrarModalEditar() {
   editarMascotaModal.style.display = "none";
 }
 
-formularioEditarMascota.onsubmit = function (event) {
+formularioEditarMascota.addEventListener("submit", function (event) {
   event.preventDefault();
   const mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
   const index = document.getElementById("indiceMascotaEditar").value;
   mascotas[index] = {
+    id: document.getElementById("idMascotaEditar").value,
     imagenMascota: document.getElementById("imagenMascotaEditar").value,
     nombreMascota: document.getElementById("nombreMascotaEditar").value,
     razaMascota: document.getElementById("razaMascotaEditar").value,
@@ -38,9 +40,8 @@ formularioEditarMascota.onsubmit = function (event) {
     seleccionVacunas: document.getElementById("seleccionVacunasEditar").value,
   };
   localStorage.setItem("mascotas", JSON.stringify(mascotas));
-  actualizarTarjeta(index);
-  actualizarDetalle(index);
   cerrarModalEditar();
   mostrarMascotas();
   alert("Registro editado con éxito");
-};
+  console.log("editoado");
+});
