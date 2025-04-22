@@ -1,3 +1,6 @@
+const mascotas = JSON.parse(localStorage.getItem('mascotas')) || [];
+console.log(mascotas); // Verifica si las mascotas se cargan correctamente
+
 function buscar() {
   const dni = document.getElementById("dniInput").value.trim();
   const fecha = document.getElementById("fechaInput").value;
