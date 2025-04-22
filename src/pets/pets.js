@@ -1,5 +1,5 @@
 // Obtener las mascotas desde localStorage
-const mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
+let mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
 
 const container = document.getElementById("mascotasContainer");
 const detalle = document.getElementById("detalleMascota");
@@ -8,7 +8,9 @@ const contenido = document.getElementById("contenidoDetalle");
 let indiceMascotaActual = null;
 
 function mostrarMascotas() {
-  console.log("funciona");
+  console.log("Mostrando mascotas actualizadas");
+  mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
+  
   container.innerHTML = "";
   mascotas.forEach((mascota, index) => {
     const card = document.createElement("div");
@@ -26,7 +28,10 @@ function mostrarMascotas() {
 
 function mostrarDetalle(i) {
   indiceMascotaActual = i;
+  //asegura que los datos son actualizados
+  mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
   const m = mascotas[i];
+  
   detalle.style.display = "block";
   overlay.style.display = "block";
   contenido.innerHTML = `
@@ -57,13 +62,25 @@ function abrirModalEditar(index) {
 }
 
 function actualizarTarjeta(index) {
+  //asegurarse de que los datos son actualizados
+  mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
   const card = document.getElementById(`mascota-${index}`);
   const mascota = mascotas[index];
-  card.innerHTML = `
-        <img src="${mascota.imagenMascota}" alt="${mascota.nombreMascota}">
-        <strong>${mascota.nombreMascota}</strong><br>
-        <em>${mascota.razaMascota}</em>
-      `;
+  
+  if (card) {
+    card.classList.add("actualizado");
+    
+    card.innerHTML = `
+          <img src="${mascota.imagenMascota}" alt="${mascota.nombreMascota}">
+          <strong>${mascota.nombreMascota}</strong><br>
+          <em>${mascota.razaMascota}</em>
+        `;
+        
+    // quitarlo despues de la animacin
+    setTimeout(() => {
+      card.classList.remove("actualizado");
+    }, 1500);
+  }
 }
 
 function actualizarDetalle(index) {
