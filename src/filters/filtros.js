@@ -1,20 +1,23 @@
-const mascotas = JSON.parse(localStorage.getItem('mascotas')) || [];
-console.log(mascotas); // Verifica si las mascotas se cargan correctamente
-
+ // Verifica si las mascotas se cargan correctamente
 function buscar() {
   const dni = document.getElementById("dniInput").value.trim();
   const fecha = document.getElementById("fechaInput").value;
   const nombre = document.getElementById("registroInput").value.toLowerCase();
   const raza = document.getElementById("razaInput").value.toLowerCase();
 
-  const mascotas = JSON.parse(localStorage.getItem('mascotas')) || [];
-
   let filtrados = mascotas;
 
-  if (dni) filtrados = filtrados.filter(item => item.dniDueño.includes(dni));
-  if (fecha) filtrados = filtrados.filter(item => item.fechaIngreso === fecha);
-  if (nombre) filtrados = filtrados.filter(item => item.nombreMascota.toLowerCase().includes(nombre));
-  if (raza) filtrados = filtrados.filter(item => item.razaMascota.toLowerCase() === raza);
+  if (dni) filtrados = filtrados.filter((item) => item.dniDueño.includes(dni));
+  if (fecha)
+    filtrados = filtrados.filter((item) => item.fechaIngreso === fecha);
+  if (nombre)
+    filtrados = filtrados.filter((item) =>
+      item.nombreMascota.toLowerCase().includes(nombre)
+    );
+  if (raza)
+    filtrados = filtrados.filter(
+      (item) => item.razaMascota.toLowerCase() === raza
+    );
 
   mostrarResultados(filtrados);
 }
@@ -24,8 +27,6 @@ function restaurar() {
   document.getElementById("fechaInput").value = "";
   document.getElementById("registroInput").value = "";
   document.getElementById("razaInput").value = "";
-
-  const mascotas = JSON.parse(localStorage.getItem('mascotas')) || [];
   mostrarResultados(mascotas);
 }
 
@@ -66,7 +67,9 @@ function mostrarDetalleGlobal(m) {
     <p><strong>Dueño:</strong> ${m.nombreDueño}</p>
     <p><strong>DNI:</strong> ${m.dniDueño}</p>
     <p><strong>Ingreso:</strong> ${m.fechaIngreso}</p>
-    <p><strong>Vacunas:</strong> ${m.seleccionVacunas === 'true' ? 'Vacunado' : 'No Vacunado'}</p>
+    <p><strong>Vacunas:</strong> ${
+      m.seleccionVacunas === "true" ? "Vacunado" : "No Vacunado"
+    }</p>
     <img src="${m.imagenMascota}" alt="${m.nombreMascota}">
   `;
 }
