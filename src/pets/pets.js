@@ -25,13 +25,13 @@ function mostrarMascotas() {
     container.appendChild(card);
   });
 }
-
 function mostrarDetalle(i) {
   indiceMascotaActual = i;
   //asegura que los datos son actualizados
+function mostrarDetalle(id) {
+  idMascotaActual = id;
   mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
-  const m = mascotas[i];
-  
+  const m = mascotas[id];
   detalle.style.display = "block";
   overlay.style.display = "block";
   contenido.innerHTML = `
@@ -44,7 +44,7 @@ function mostrarDetalle(i) {
         <p><strong>Vacunas:</strong> ${
           m.seleccionVacunas === "true" ? "Vacunado" : "No Vacunado"
         }</p>
-        <button type="button" id="botonEditar" class="icon-button" onclick="abrirModalEditar(${i})">
+        <button type="button" id="botonEditar" class="icon-button" onclick="abrirModalEditar(${id})">
           <i class="fas fa-edit"></i>
         </button>
         <img src="${m.imagenMascota}" alt="${m.nombreMascota}">
@@ -60,7 +60,6 @@ function abrirModalEditar(index) {
   cerrarDetalle();
   abrirModalEditarConIndice(index);
 }
-
 function actualizarTarjeta(index) {
   //asegurarse de que los datos son actualizados
   mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
@@ -88,6 +87,5 @@ function actualizarDetalle(index) {
     mostrarDetalle(index);
   }
 }
-
 // Mostrar las mascotas al cargar la página
 mostrarMascotas();

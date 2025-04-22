@@ -23,7 +23,6 @@ function abrirModalEditarConIndice(index) {
 function cerrarModalEditar() {
   editarMascotaModal.style.display = "none";
 }
-
 // funcion de notificacion
 function mostrarNotificacionCambios() {
   const notificacion = document.createElement("div");
@@ -63,10 +62,7 @@ function mostrarNotificacionCambios() {
     }, 300);
   }, 3000);
 }
-
-
-
-formularioEditarMascota.onsubmit = function (event) {
+formularioEditarMascota.addEventListener("submit", function (event) {
   event.preventDefault();
   
   // obttener mascotas editadas 
@@ -86,7 +82,6 @@ formularioEditarMascota.onsubmit = function (event) {
   
   //guardar en el localstorage
   localStorage.setItem("mascotas", JSON.stringify(mascotas));
-  
   cerrarModalEditar();
   actualizarTarjeta(index);
   // Mostrar la mascota editada en el detalle
