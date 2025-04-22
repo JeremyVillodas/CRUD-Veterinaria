@@ -1,5 +1,5 @@
 // Obtener las mascotas desde localStorage
-const mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
+let mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
 
 const container = document.getElementById("mascotasContainer");
 const detalle = document.getElementById("detalleMascota");
@@ -8,7 +8,9 @@ const contenido = document.getElementById("contenidoDetalle");
 let indiceMascotaActual = null;
 
 function mostrarMascotas() {
-  console.log("funciona");
+  console.log("Mostrando mascotas actualizadas");
+  mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
+  
   container.innerHTML = "";
   mascotas.forEach((mascota, index) => {
     const card = document.createElement("div");
@@ -23,10 +25,10 @@ function mostrarMascotas() {
     container.appendChild(card);
   });
 }
-
-function mostrarDetalle(i) {
-  indiceMascotaActual = i;
-  const m = mascotas[i];
+function mostrarDetalle(id) {
+  idMascotaActual = id;
+  mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
+  const m = mascotas[id];
   detalle.style.display = "block";
   overlay.style.display = "block";
   contenido.innerHTML = `
@@ -39,7 +41,7 @@ function mostrarDetalle(i) {
         <p><strong>Vacunas:</strong> ${
           m.seleccionVacunas === "true" ? "Vacunado" : "No Vacunado"
         }</p>
-        <button type="button" id="botonEditar" class="icon-button" onclick="abrirModalEditar(${i})">
+        <button type="button" id="botonEditar" class="icon-button" onclick="abrirModalEditar(${id})">
           <i class="fas fa-edit"></i>
         </button>
         <img src="${m.imagenMascota}" alt="${m.nombreMascota}">
@@ -55,15 +57,26 @@ function abrirModalEditar(index) {
   cerrarDetalle();
   abrirModalEditarConIndice(index);
 }
-
 function actualizarTarjeta(index) {
+  //asegurarse de que los datos son actualizados
+  mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
   const card = document.getElementById(`mascota-${index}`);
   const mascota = mascotas[index];
-  card.innerHTML = `
-        <img src="${mascota.imagenMascota}" alt="${mascota.nombreMascota}">
-        <strong>${mascota.nombreMascota}</strong><br>
-        <em>${mascota.razaMascota}</em>
-      `;
+  
+  if (card) {
+    card.classList.add("actualizado");
+    
+    card.innerHTML = `
+          <img src="${mascota.imagenMascota}" alt="${mascota.nombreMascota}">
+          <strong>${mascota.nombreMascota}</strong><br>
+          <em>${mascota.razaMascota}</em>
+        `;
+        
+    // quitarlo despues de la animacin
+    setTimeout(() => {
+      card.classList.remove("actualizado");
+    }, 1500);
+  }
 }
 
 function actualizarDetalle(index) {
@@ -71,6 +84,5 @@ function actualizarDetalle(index) {
     mostrarDetalle(index);
   }
 }
-
 // Mostrar las mascotas al cargar la página
 mostrarMascotas();

@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const botonCancelar = document.getElementById("botonCancelar");
 
   let mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
-  let nextId = JSON.parse(localStorage.getItem("nextId")) || 1;
+  let nextId = JSON.parse(localStorage.getItem("nextId")) || 0;
 
   formularioMascota.addEventListener("submit", (event) => {
     event.preventDefault();
