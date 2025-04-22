@@ -1,0 +1,93 @@
+/*NAv link*/
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #2b2b2b;
+  color: white;
+}
+
+.header {
+  padding: 15px 0px;
+  display: flex;
+  justify-content: center;
+  background-color: #005dc1;
+}
+
+.search-box {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-left: 55%;
+  margin-bottom: -10px;
+}
+
+.search-box input[type="text"],
+.search-box input[type="date"],
+.search-box select {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: white;
+  color: black;
+  font-size: 14px;
+  outline: none;
+  width: auto; /* Asegura que los inputs ocupen el ancho necesario */
+  box-sizing: border-box; /* Incluye el padding y el border en el ancho total */
+}
+
+.search-box button {
+  padding: 10px 14px;
+  border: none;
+  background-color: white;
+  color: #007bff;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button {
+  padding: 10px 14px;
+  border: none;
+  background-color: white;
+  color: #007bff;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.filters {
+  margin: 30px 60px;
+  gap: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.fast{
+  width: 60px;
+  height: 40px;
+}
+
+/*===========================00*/
+.footer {
+    position: fixed; /* o 'absolute' dependiendo de tu layout */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; /* Altura fija */
+    background-color: #383838; /* Color de fondo oscuro */
+    color: #ecf0f1; /* Color de texto claro */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 -2px 10px rgb(49, 49, 49);
+    z-index: 1000; /* Para asegurar que esté por encima de otros elementos */
+    padding: 0 20px;
+    box-sizing: border-box; /* Para que el padding no afecte el ancho total */
+  }
+  
+  .footer p {
+    margin: 0;
+    font-size: 14px;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+  }
