@@ -25,9 +25,6 @@ function mostrarMascotas() {
     container.appendChild(card);
   });
 }
-function mostrarDetalle(i) {
-  indiceMascotaActual = i;
-  //asegura que los datos son actualizados
 function mostrarDetalle(id) {
   idMascotaActual = id;
   mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];

@@ -1,11 +1,13 @@
 const editarMascotaModal = document.getElementById("editarMascotaModal");
-const formularioEditarMascota = document.getElementById("formularioEditarMascota");
+const formularioEditarMascota = document.getElementById(
+  "formularioEditarMascota"
+);
 
 function abrirModalEditarConIndice(index) {
   // Asegurar datos actualizados
   const mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
   const mascota = mascotas[index];
-  
+
   document.getElementById("indiceMascotaEditar").value = index;
   document.getElementById("idMascotaEditar").value = mascota.id;
   document.getElementById("imagenMascotaEditar").value = mascota.imagenMascota;
@@ -15,8 +17,9 @@ function abrirModalEditarConIndice(index) {
   document.getElementById("dniDueñoEditar").value = mascota.dniDueño;
   document.getElementById("nombreDueñoEditar").value = mascota.nombreDueño;
   document.getElementById("fechaIngresoEditar").value = mascota.fechaIngreso;
-  document.getElementById("seleccionVacunasEditar").value = mascota.seleccionVacunas;
-  
+  document.getElementById("seleccionVacunasEditar").value =
+    mascota.seleccionVacunas;
+
   editarMascotaModal.style.display = "flex";
 }
 
@@ -33,7 +36,7 @@ function mostrarNotificacionCambios() {
       <span>¡Cambios guardados correctamente!</span>
     </div>
   `;
-  
+
   // estilon para la notificacion
   notificacion.style.position = "fixed";
   notificacion.style.top = "20px";
@@ -46,14 +49,14 @@ function mostrarNotificacionCambios() {
   notificacion.style.zIndex = "9999";
   notificacion.style.opacity = "0";
   notificacion.style.transition = "opacity 0.3s ease";
-  
+
   document.body.appendChild(notificacion);
-  
+
   // Animación
   setTimeout(() => {
     notificacion.style.opacity = "1";
   }, 10);
-  
+
   // cerrar despues de 3 segundos
   setTimeout(() => {
     notificacion.style.opacity = "0";
@@ -64,8 +67,8 @@ function mostrarNotificacionCambios() {
 }
 formularioEditarMascota.addEventListener("submit", function (event) {
   event.preventDefault();
-  
-  // obttener mascotas editadas 
+
+  // obttener mascotas editadas
   const mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
   const index = parseInt(document.getElementById("indiceMascotaEditar").value);
   mascotas[index] = {
@@ -79,7 +82,7 @@ formularioEditarMascota.addEventListener("submit", function (event) {
     fechaIngreso: document.getElementById("fechaIngresoEditar").value,
     seleccionVacunas: document.getElementById("seleccionVacunasEditar").value,
   };
-  
+
   //guardar en el localstorage
   localStorage.setItem("mascotas", JSON.stringify(mascotas));
   cerrarModalEditar();
@@ -88,7 +91,7 @@ formularioEditarMascota.addEventListener("submit", function (event) {
   if (indiceMascotaActual === index) {
     mostrarDetalle(index);
   }
-  
+
   mostrarNotificacionCambios();
   mostrarMascotas();
-};
+});
