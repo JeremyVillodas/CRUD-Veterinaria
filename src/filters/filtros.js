@@ -2,30 +2,38 @@
  function buscar() {
   const dni = document.getElementById("dniInput").value.trim();
   const fecha = document.getElementById("fechaInput").value;
-  const filtroRegistro = document.getElementById("registroInput").value; // ← ya no usamos toLowerCase aquí
+  const filtroRegistro = document.getElementById("registroInput").value;
   const raza = document.getElementById("razaInput").value.toLowerCase();
 
   let filtrados = mascotas;
 
+  // Filtrar por DNI
   if (dni) filtrados = filtrados.filter((item) => item.dniDueño.includes(dni));
-  if (fecha) filtrados = filtrados.filter((item) => item.fechaIngreso === fecha);
   
-  // Filtro de "Nuevo" (<30 días) o "Último" (>=30 días)
-  if (filtroRegistro) {
-    filtrados = filtrados.filter((item) => {
-      const hoy = new Date();
-      const fechaIngreso = new Date(item.fechaIngreso);
-      const diferenciaDias = (hoy - fechaIngreso) / (1000 * 60 * 60 * 24); // días
+  // Filtrar por fecha de ingreso
+  if (fecha) filtrados = filtrados.filter((item) => item.fechaIngreso === fecha);
 
-      if (filtroRegistro === "nuevo") {
-        return diferenciaDias < 30;
-      } else if (filtroRegistro === "ultimo") {
-        return diferenciaDias >= 30;
-      }
-      return true; // por defecto no filtra nada
-    });
+  // Filtrar por "Nuevo" o "Último"
+  if (filtroRegistro) {
+    // No se filtra por fecha (no hay límite de 30 días), solo se ordena
+    if (filtroRegistro === "nuevo") {
+      // Ordenar de la fecha más nueva a la más antigua
+      filtrados.sort((a, b) => {
+        const fechaA = new Date(a.fechaIngreso);
+        const fechaB = new Date(b.fechaIngreso);
+        return fechaB - fechaA; // Ordenar de la más nueva a la más antigua
+      });
+    } else if (filtroRegistro === "ultimo") {
+      // Ordenar de la fecha más antigua a la más nueva
+      filtrados.sort((a, b) => {
+        const fechaA = new Date(a.fechaIngreso);
+        const fechaB = new Date(b.fechaIngreso);
+        return fechaA - fechaB; // Ordenar de la más antigua a la más nueva
+      });
+    }
   }
 
+  // Filtrar por raza
   if (raza) filtrados = filtrados.filter(
     (item) => item.razaMascota.toLowerCase() === raza
   );
